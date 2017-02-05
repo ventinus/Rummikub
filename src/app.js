@@ -23,6 +23,8 @@ import 'index.html';
 // create redux store and sync it with the browserHistory
 const history = syncHistoryWithStore(browserHistory, store);
 
+// store.subscribe(() => {console.log(store.getState().rummikub)})
+
 ReactDOM.render(
   <Provider store={ store }>
     <Router history={ history }>
