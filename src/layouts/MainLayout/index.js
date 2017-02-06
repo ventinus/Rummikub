@@ -4,7 +4,6 @@ import styles from './MainLayout.scss';
 
 const MainLayout = ({children}) => (
   <div className="layout">
-    <Nav />
     { children }
   </div>
 );

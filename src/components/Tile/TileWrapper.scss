@@ -1,0 +1,16 @@
+.tile-wrapper {
+
+  .tile {}
+}
+
+.tile-wrapper--board {
+  .tile {}
+}
+
+.tile-wrapper--tray {
+  margin-left: -10px;
+
+  .tile {
+    margin-left: 10px;
+  }
+}

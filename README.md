@@ -81,6 +81,5 @@ Still a WIP, but project building occurs on staging/production after the deploy 
 
 
 ### TODOS
-- setup base styling, mixins, helpers
-- setup testing
-- extract/rework webpack config with dev vs prod builds
+- make tiles draggable/sortable by also giving a tile x and y values. surrounding tiles auto-relayout to make room for tile being dragged. basically the functionality of moving apps around on the iphone home screen. look into velocity and velocity-ui
+- are trays and tiles statically sized? maybe look into how rems can work for responsive sizing

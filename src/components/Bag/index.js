@@ -1,5 +1,5 @@
 import React from 'react';
-import Tile from './Tile';
+import Tile from '../Tile';
 const { PropTypes } = React;
 
 const Bag = ({tiles}) => {

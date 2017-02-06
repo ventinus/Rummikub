@@ -1,0 +1,31 @@
+.tile {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px * 1.36;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  font-size: 40px;
+}
+
+.tile--black {
+  color: black;
+}
+.tile--red {
+  color: red;
+}
+.tile--orange {
+  color: orange;
+}
+.tile--blue {
+  color: blue;
+}
+
+
+.tile__value {
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

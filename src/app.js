@@ -14,8 +14,6 @@ import MainLayout from './layouts/MainLayout';
 
 // Import container components
 import Home from './containers/Home';
-import About from './containers/About';
-import Contact from './containers/Contact';
 import NotFound from './containers/NotFound';
 
 import 'index.html';
@@ -30,8 +28,6 @@ ReactDOM.render(
     <Router history={ history }>
       <Route path="/" component={ MainLayout }>
         <IndexRoute component={ Home } />
-        <Route path="about" component={ About } />
-        <Route path="contact" component={ Contact } />
         <Route path="*" component={ NotFound } />
       </Route>
     </Router>
