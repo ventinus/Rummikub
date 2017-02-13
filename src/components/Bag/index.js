@@ -1,23 +1,25 @@
 import React from 'react';
-import Tile from '../Tile';
+import { connect } from 'react-redux';
+import Tile from 'components/Tile';
+import { drawTile } from 'actions';
+import './Bag.scss';
 const { PropTypes } = React;
 
-const Bag = ({tiles}) => {
-
+const Bag = ({bag, drawTile}) => {
   return (
-    <div className="bag">
-      { tiles.map((tile, i) => {
-        <Tile
-          key={ i }
-          data={ tile }
-        />
-      })}
+    <div className="bag-container">
+      <button className="bag-container__bag" onClick={ drawTile } disabled={ (bag.length <= 0) }>THE BAG</button>
     </div>
   );
 };
 
-Bag.propTypes = {
-  tiles: PropTypes.array.isRequired
-};
+const mapStateToProps = (state) => ({
+  bag: state.rummikub.bag
+})
 
-export default Bag;
+export default connect(
+  mapStateToProps,
+  {
+    drawTile
+  }
+)(Bag);

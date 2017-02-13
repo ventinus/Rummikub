@@ -1,0 +1,355 @@
+// ======================================================================================================
+//
+// Base: Base element normalization
+//
+// ======================================================================================================
+
+@import "~scss/helpers/mixins.scss";
+@import "~scss/helpers/variables.scss";
+
+// --------------------------------------------------
+// Document
+// --------------------------------------------------
+html {
+  background: transparent;
+  box-sizing: border-box;
+  height: 100%;
+  font-size: $font-size-root;
+  min-height: 100%;
+  position: relative;
+  text-size-adjust: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background: $body-bg;
+  color: $default-txt-color;
+  display: flex; /* for sticky footer */
+  flex-direction: column; /* for sticky footer */
+  font-family: $font-family-default;
+  font-size: $font-size-base;
+  font-weight: $font-weight-default;
+  height: 100%; /* for IE to behave with flex */
+  line-height: $line-height-base;
+  margin: 0;
+  min-height: 100%;
+  position: relative;
+  text-rendering: optimizelegibility;
+  -webkit-overflow-scrolling: touch;
+  @include font-smoothing();
+}
+
+// --------------------------------------------------
+// HTML5 Element Default
+// --------------------------------------------------
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+// --------------------------------------------------
+// Lists
+// --------------------------------------------------
+nav {
+  ol,
+  ul{
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+    }
+  }
+}
+
+ul,
+ol {
+  list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+
+  ul,
+  ol {
+    margin-bottom: 0;
+  }
+}
+
+// --------------------------------------------------
+// Spacers
+// --------------------------------------------------
+figure {
+  margin: 0;
+}
+
+hr {
+  background: $hr-color;
+  border: none;
+  box-sizing: content-box;
+  display: block;
+  height: 1px;
+}
+
+// --------------------------------------------------
+// Headdings
+// --------------------------------------------------
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color:       $headings-font-color;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  margin: 0;
+  line-height: $headings-line-height;
+}
+
+// --------------------------------------------------
+// Body text elements
+// --------------------------------------------------
+p {
+  margin: 0;
+  orphans: 2;
+  widows: 2;
+}
+
+blockquote {
+  color: $blockquote-txt-color;
+  display: block;
+  font-family: $blockquote-font-family;
+  margin: 0;
+  padding-left: 20px;
+  @include font-size($blockquote-txt-size);
+}
+
+// --------------------------------------------------
+// Links
+// --------------------------------------------------
+a {
+  text-decoration: none;
+  transition: $default-animation;
+}
+
+// --------------------------------------------------
+// Clear Default Emphasis Handeling
+// --------------------------------------------------
+b,
+strong {
+  font-family: $font-family-bold;
+  font-weight: normal;
+}
+
+em {
+  font-family: $font-family-italic;
+  font-style: none;
+}
+
+// --------------------------------------------------
+// Images
+// --------------------------------------------------
+img {
+  border: 0;
+  display: block;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+// --------------------------------------------------
+// Forms
+// --------------------------------------------------
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: none;
+  text-rendering: optimizelegibility;
+  @include font-smoothing();
+}
+
+button {
+  background: none;
+  border: 0;
+  overflow: visible;
+  -webkit-appearance: none;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: $font-family-default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input::-moz-focus-inner,
+select::-moz-focus-inner {
+  border: 0;
+}
+
+input {
+  border-radius: 0;
+  line-height: normal;
+  -webkit-appearance: none;
+}
+
+select { -webkit-appearance: none; }
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+a, div, span, p, em, strong, a:focus {
+  outline: none !important;
+  -moz-outline: none !important;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+input[type="search"] {
+  box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+fieldset {
+  border: 0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+}
+
+optgroup {
+  font-weight: bold;
+}
+
+// --------------------------------------------------
+// Placeholder Text
+// --------------------------------------------------
+::-webkit-input-placeholder { color: $placeholder-txt-color; }
+::-moz-placeholder          { color: $placeholder-txt-color; }
+:-ms-input-placeholder      { color: $placeholder-txt-color; }
+:-ms-input-placeholder      { color: $placeholder-txt-color; }
+
+// --------------------------------------------------
+// Tables
+// --------------------------------------------------
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+// --------------------------------------------------
+// Selection
+// --------------------------------------------------
+::-moz-selection {
+  background: rgba($highlight, 0.9);
+  color: $highlight-text;
+  text-shadow: none;
+}
+
+::selection {
+  background: rgba($highlight, 0.9);
+  color: $highlight-text;
+  text-shadow: none;
+}
+
+.turbolinks-progress-bar { background: $turbolinks-progress-bar; }

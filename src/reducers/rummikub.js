@@ -1,4 +1,11 @@
-import * as types from '../actions/actionTypes';
+import {
+  INITIALIZE_GAME, START_GAME, COMPLETE_GAME, END_GAME,
+  ADD_PLAYER, REMOVE_PLAYER,
+  DRAW_TILE
+} from 'actions/actionTypes';
+import { GAME_STATES, PLAYER_TYPES } from 'helpers/constants';
+import players from './players';
+import bag from './bag';
 
 const fillBag = () => {
   const COLORS = ["blue", "orange", "red", "black"];
@@ -18,65 +25,58 @@ const fillBag = () => {
   return bag;
 }
 
+let gameId = 0;
+
 const INITIAL_STATE = {
-  "player_trays": [],
-  "board": [],
-  "bag": fillBag()
+  id: gameId++,
+  status: "inactive",
+  current_player_index: 0,
+  players: [],
+  board: [],
+  bag: fillBag()
 };
 
-const RUMMIKUB_MAP = {
-  [types.RESET_GAME]: (state, action) => { return INITIAL_STATE; },
-  [types.ADD_PLAYER]: (state, action) => {
-    if (state.player_trays.length >= 4) return state;
-
-    let newTrays = state.player_trays.concat({});
-
-    return Object.assign({},
-      state,
-      {
-        player_trays: [
-          ...state.player_trays,
-          {
-            "raw_tiles": []
-          }
-        ]
-
-      }
-    );
-  },
-  [types.DRAW]: (state, action) => {
-    let tileIndex = Math.floor(Math.random() * state.bag.length);
-    let tray = {
-      "raw_tiles": [
-        ...state.player_trays[action.player_index].raw_tiles,
-        state.bag[tileIndex]
-      ]
-    };
-
-    return Object.assign({},
-      state,
-      {
-        bag: [
-          ...state.bag.slice(0, tileIndex),
-          ...state.bag.slice(tileIndex + 1)
-        ],
-        player_trays: [
-          ...state.player_trays.slice(0, action.player_index),
-          tray,
-          ...state.player_trays.slice(action.player_index + 1)
-        ]
-      }
-    );
-  }
-}
 
 const rummikub = (
   state = INITIAL_STATE,
   action
 ) => {
-  if (!RUMMIKUB_MAP.hasOwnProperty(action.type)) return state;
+  switch (action.type) {
+    case INITIALIZE_GAME:
+    case START_GAME:
+    case COMPLETE_GAME:
+    case END_GAME:
+      return {
+        ...state,
+        status: action.status
+      };
+    case ADD_PLAYER:
+    case REMOVE_PLAYER:
+      return {
+        ...state,
+        players: players(state.players, action)
+      };
+    case DRAW_TILE:
+      // fairly copmlex action...
+      //   - increments player index
+      //   - removes a tile from the bag
+      //   - adds the tile to the current players tiles
+      action.tileIndex = Math.floor(Math.random() * state.bag.length);
+      action.tile = state.bag[action.tileIndex];
 
-  return RUMMIKUB_MAP[action.type](state, action);
+      const playerIndex = state.current_player_index;
+      action.playerIndex = playerIndex;
+      const nextPlayerIndex = playerIndex + 1 < state.players.length ? playerIndex + 1 : 0;
+
+      return {
+        ...state,
+        current_player_index: nextPlayerIndex,
+        bag: bag(state.bag, action),
+        players: players(state.players, action)
+      };
+    default:
+      return state;
+  }
 }
 
 

@@ -1,4 +1,86 @@
-// Use sass variables only when needing to programmatically change
-// the value, such as a @for loop.
-// The variables file will need to be imported in the component
-// to be accessible `@import "~scss/variables.scss";`
+//  ======================================================================================================
+//
+//  Variables
+//
+//  ======================================================================================================
+
+//  Responsive Breakpoints
+//  --------------------------------------------------
+  $break-xs:           350px  !default;
+  $break-sm:           580px  !default;
+  $break-md:           768px  !default;
+  $break-lg:           1024px !default;
+  $break-xl:           1280px !default;
+
+//  Color
+//  --------------------------------------------------
+  // Neutrals
+  $white:              rgba(255,255,255,1) !default; // white
+  $black:              rgba(0,  0,  0,  1) !default; // black
+
+//  Default Color Settings
+//  --------------------------------------------------
+  $body-bg:                 $white      !default;
+  $default-txt-color:       $black      !default;
+  $placeholder-txt-color:   $black      !default;
+
+  $hr-color:                $black      !default;
+  $highlight:               $white      !default;
+  $highlight-text:          $black      !default;
+  $turbolinks-progress-bar: $black      !default;
+
+//  Font Families
+//  --------------------------------------------------
+  $font-bold:               Helvetica, Arial, sans-serif !default;
+  $font-regular:            Helvetica, Arial, sans-serif !default;
+  $font-light:              Helvetica, Arial, sans-serif !default;
+  // $font-icons:              'icons'                      !default;
+
+//  Font Stacks
+//  --------------------------------------------------
+  $font-family-default:     $font-regular        !default;
+  $font-family-bold:        $font-bold           !default;
+  $font-family-italic:      $font-regular        !default;
+
+//  Type Sizes (use rem mixin to apply)
+//  --------------------------------------------------
+  $font-size-base:          16px                 !default;
+  $font-size-root:          62.5%                !default;
+
+//  Defaults
+//  --------------------------------------------------
+  $font-weight-default:     normal               !default;
+  $line-height-base:        1.5                  !default;
+
+//  Headings
+//  --------------------------------------------------
+  $headings-font-family:    $font-bold           !default;
+  $headings-font-weight:    normal               !default;
+  $headings-line-height:    $line-height-base    !default;
+  $headings-font-color:     $black               !default;
+
+//  Blockquotes
+//  --------------------------------------------------
+  $blockquote-font-family:  $font-family-default !default;
+  $blockquote-txt-size:     $font-size-base      !default;
+  $blockquote-txt-color:    $default-txt-color   !default;
+
+//  Links
+//  --------------------------------------------------
+  $link-color:              $black               !default;
+  $link-hover-color:        rgba($black, 0.7)    !default;
+
+//  Forms
+//  --------------------------------------------------
+  $font-family-form:        $font-family-default !default;
+  $font-family-label:       $font-family-default !default;
+
+//  Animation
+//  --------------------------------------------------
+  $default-animation:       all 0.3s             !default;
+  $default-animation-duration:  0.3s             !default;
+
+//  Site Max Width
+//  --------------------------------------------------
+  $max-width:  1282px;
+  $nav-height: 50px;

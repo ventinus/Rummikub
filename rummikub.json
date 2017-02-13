@@ -1,0 +1,54 @@
+{
+  // game data
+  "game": {
+    "id": 0,
+    "status": "active", // one of "active", "inactive", "completed", or "pending"
+    "current_player_index": 0,
+    "players": [
+      // a single players tiles, perhaps with stored sorted options
+      {
+        "name": "",
+        "player_type": "human", // either human or computer
+        "tiles": [{}]
+      }
+    ],
+
+    // sets of tiles, each a min of 3 or zero
+    "board": [
+      [
+        // tile
+        {
+          "color": "blue",
+          "value": 5,
+          "x": 3,
+          "y": 3
+        }
+      ]
+    ],
+
+    // 106 tiles
+    "bag": [
+      // tile
+      {
+        "color": "orange",
+        "value": 1,
+        "x": 3,
+        "y": 3
+      }
+    ]
+  },
+
+  "previous_games": [
+    {
+      "id": 0,
+      "winner": "[player.name]",
+      "players": [
+        {
+          "name": "",
+          "player_type": "human",
+          "score": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,36 @@
-@mixin bg-color($color) {
-  background-color: $color;
-}
+// ======================================================================================================
+//
+// Mixins
+//
+// ======================================================================================================
+@import "~scss/helpers/variables.scss";
 
-@function image-url($image) {
-  @return url("/assets/images/#{$image}");
+// --------------------------------------------------
+// Fonts
+// --------------------------------------------------
+@mixin declare-font-face(
+  $font-family,
+  $font-filename-eot,
+  $font-filename-woff2,
+  $font-filename-woff,
+  $font-filename-ttf,
+  $font-filename-svg,
+  $font-weight : normal,
+  $font-style : normal,
+  $font-stretch : normal
+){
+  @font-face {
+    font-family: "#{$font-family}";
+    src: font-url("#{$font-filename-eot}.eot?#iefix");
+    src: font-url("#{$font-filename-eot}.eot?#iefix") format("eot"),
+         font-url("#{$font-filename-woff2}.woff2") format("woff2"),
+         font-url("#{$font-filename-woff}.woff") format("woff"),
+         font-url("#{$font-filename-ttf}.ttf") format("truetype"),
+         font-url("#{$font-filename-svg}.svg##{$font-filename-svg}") format("svg");
+    font-style: $font-style;
+    font-stretch: $font-stretch;
+    font-weight: $font-weight;
+  }
 }
 
 @mixin declare-otf-font(
@@ -22,16 +49,208 @@
   }
 }
 
-@mixin isVisuallyHidden {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  border: 0 !important;
-  margin: 0 !important;
-  clip: rect(1px 1px 1px 1px) !important;
-  clip: rect(1px, 1px, 1px, 1px) !important;
-  overflow: hidden !important;
+// --------------------------------------------------
+// Image asset path
+// --------------------------------------------------
+@function image-url($image) {
+  @return url("/assets/images/#{$image}");
+}
+
+// --------------------------------------------------
+// Utils
+// --------------------------------------------------
+// Clearfix Mixin
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// Sizing shortcuts
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin square($size) {
+  @include size($size, $size);
+}
+
+@mixin square-responsive() {
+  width: 100%;
+
+  &:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+}
+
+// --------------------------------------------------
+// Positioning
+// --------------------------------------------------
+@mixin center-all($top: 50%, $right: 0, $bottom: 0, $left: 0){
+  left: $left;
+  margin: auto;
+  position: absolute;
+  right: $right;
+  top: $top;
+  transform: translateY(-$top);
+}
+
+@mixin center-vert($top: 50%, $bottom: 0){
+  margin: auto;
+  position: absolute;
+  top: $top;
+  transform: translateY(-$top);
+}
+
+@mixin center-horz($right: 0, $left: 0){
+  left: $left;
+  margin: auto;
+  position: absolute;
+  right: $right;
+}
+
+// ------------------------------------------------
+// Font Styles
+// ------------------------------------------------
+@mixin font-smoothing() {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin truncate-text(){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-gradient($color1, $color2) {
+  span {
+    color: $white;
+    background: -webkit-linear-gradient(left, $white 0%, $white 50%, $color1 50%, $color2 100%);
+    background-position: 200%;
+    background-size: 200% 100%;
+    transition:
+      background 0.325s ease-in-out,
+      color 0.325s ease-in-out;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &:hover {
+    span { background-position: 100%; }
+  }
+}
+
+@mixin linear-gradient($direction, $color1, $color2) {
+  background: linear-gradient(to $direction, $color1 0%, $color2 100%);
+}
+
+@mixin linear-gradient-hover($direction, $color1, $color2, $color3, $color4) {
+  background: linear-gradient(to $direction, $color1 0%, $color2 50%, $color3 50%, $color4 100%);
+  transition: background 400ms cubic-bezier(0.895, 0.030, 0.685, 0.220);
+
+  @if $direction == 'bottom' {
+    background-size: 100% 205%;
+    background-position: 0% 99%;
+  } @else {
+    background-size: 205% 100%;
+    background-position: 99%;
+  }
+}
+
+// --------------------------------------------------
+// Responsive Breakpoints
+// --------------------------------------------------
+$breakpoints: (
+  'xs' : ( min-width:  $break-xs  ),
+  'sm' : ( min-width:  $break-sm  ),
+  'md' : ( min-width:  $break-md  ),
+  'lg' : ( min-width:  $break-lg  ),
+  'xl' : ( min-width:  $break-xl  )
+);
+
+@mixin breakpoint($name) {
+  @media #{inspect(map-get($breakpoints, $name))} {
+    @content;
+  }
+}
+
+// --------------------------------------------------
+// Retina Media Query
+// --------------------------------------------------
+@mixin retina() {
+  @media (-webkit-min-device-pixel-ratio: 2),
+         (-moz-min-device-pixel-ratio: 2),
+         (-o-min-device-pixel-ratio: 3/2),
+         (min-device-pixel-ratio: 2),
+         (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// --------------------------------------------------
+// Keyframe
+// --------------------------------------------------
+@mixin animation($animate...) {
+  $max: length($animate);
+  $animations: '';
+
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+
+    @if $i < $max {
+      $animations: #{$animations + ", "};
+    }
+  }
+  -webkit-animation: $animations;
+  -moz-animation:    $animations;
+  -o-animation:      $animations;
+  animation:         $animations;
+}
+
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+// --------------------------------------------------
+// Rem Calculator
+// --------------------------------------------------
+@mixin font-size($sizeValue) {
+  font-size: $sizeValue + px;
+  font-size: ($sizeValue / 10) + rem;
+}
+
+// --------------------------------------------------
+// Photoshop to CSS Letter Spacing Calcuation
+// --------------------------------------------------
+@mixin letter-spacing($spacingValue) {
+  letter-spacing: ($spacingValue / 1000) + em;
+}
+
+// --------------------------------------------------
+// Alpha
+// --------------------------------------------------
+@mixin alpha-attribute($attribute, $color) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  #{$attribute}: $color;
 }
